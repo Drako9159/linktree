@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import LoginView from "./routes/LoginView";
+import DashboardView from "./routes/DashboardView";
+import EditProfileView from "./routes/EditProfileView";
+import PublicProfileView from "./routes/PublicProfileView";
+import SignOutView from "./routes/SignOutView";
+import ChooseUsernameView from "./routes/ChooseUsernameView";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginView />}></Route>
+      <Route path="/dashboard" element={<DashboardView />}></Route>
+      <Route path="/dashboard/profile" element={<EditProfileView />}></Route>
+      <Route path="/signout" element={<SignOutView />}></Route>
+      <Route path="/u/:username" element={<PublicProfileView />}></Route>
+      <Route path="/choose-username" element={<ChooseUsernameView />}></Route>
+    </Routes>
   );
 }
 
