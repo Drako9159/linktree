@@ -24,7 +24,6 @@ export default function AuthProvider({
     onAuthStateChanged(auth, async (user) => {
       //TODO : Verificar si el usuario existe en la base de datos
       if (user) {
-        debugger;
         const isRegistered = await userExist(user.uid);
         if (isRegistered) {
           const userInfo = await getUserInfo(user.uid);
