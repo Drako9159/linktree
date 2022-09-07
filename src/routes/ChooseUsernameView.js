@@ -1,7 +1,8 @@
 import AuthProvider from "../components/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { existsUsername, updateUser } from "../firebase/firebase";
+import styles from "./ChooseUsernameView.module.css";
 
 export default function ChooseUsernameView() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function ChooseUsernameView() {
     setUsername(e.target.value);
   }
   async function handleContinue() {
-    if (username != "") {
+    if (username !== "") {
       const exists = await existsUsername(username);
 
       if (exists) {
@@ -41,22 +42,24 @@ export default function ChooseUsernameView() {
 
   if (state === 3 || state === 5) {
     return (
-      <div>
+      <div className={styles.chooseUsernameContainer}>
         <h1>Bienvenido {currentUser.displayName}</h1>
         <p>Par terminar el proceso, elige un nombre de usuario</p>
         {state === 3 ? <p>El nombre de usuario ya existe, escoge otro</p> : ""}
         <div>
-          <input type="text" onChange={handleInputUsername} />
+          <input className="input" type="text" onChange={handleInputUsername} />
         </div>
         <div>
-          <button onClick={handleContinue}>Continuar</button>
+          <button className="btn" onClick={handleContinue}>
+            Continuar
+          </button>
         </div>
       </div>
     );
   }
   if (state === 6) {
     return (
-      <div>
+      <div className={styles.chooseUsernameContainer}>
         <h1>Ya puedes ir al dashboard a crear tus links</h1>
         <Link to="/dashboard"> Continuar </Link>
       </div>

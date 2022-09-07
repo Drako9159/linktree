@@ -1,14 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
 
-import { getStorage, ref, getDownloadURL, getBytes } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import {
   getFirestore,
   collection,
@@ -16,7 +11,6 @@ import {
   addDoc,
   doc,
   getDoc,
-  updateDoc,
   deleteDoc,
   query,
   where,
@@ -39,7 +33,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
 export const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -129,4 +123,33 @@ export async function deleteLink(docId) {
   } catch (error) {
     console.error(error);
   }
+}
+export async function setUserProfilePhoto(uid, file) {
+  try {
+    const imageRef = ref(storage, `images/${uid}`);
+    const resUpload = await uploadBytes(imageRef, file);
+    return resUpload;
+  } catch (error) {
+    console.error(error);
+  }
+}
+export async function getProfilePhotoUrl(profilePicture) {
+  try {
+    const imageRef = ref(storage, profilePicture);
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (error) {
+    console.error(error);
+  }
+}
+export async function getUserPublicProfileInfo(uid) {
+  const profileInfo = await getUserInfo(uid);
+  const linksInfo = await getLinks(uid);
+  return {
+    profileInfo: profileInfo,
+    linksInfo: linksInfo,
+  };
+}
+export async function logout() {
+  await auth.signOut();
 }

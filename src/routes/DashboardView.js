@@ -3,6 +3,8 @@ import { useState } from "react";
 import AuthProvider from "../components/AuthProvider";
 import DashboardWrapper from "../components/DashboardWrapper";
 import { v4 as uuid } from "uuid";
+import styles from "./DashboardView.module.css";
+import stylesLink from "../components/Link.module.css";
 import {
   getLinks,
   insertNewLink,
@@ -47,7 +49,7 @@ export default function DashboardView() {
     addLink();
   }
   function addLink(e) {
-    if (title != "" && url != "") {
+    if (title !== "" && url !== "") {
       const newLink = {
         id: uuid(),
         title: title,
@@ -72,7 +74,7 @@ export default function DashboardView() {
   }
   async function handleDeleteLink(docId) {
     await deleteLink(docId);
-    const tmp = links.filter((link) => link.docId != docId);
+    const tmp = links.filter((link) => link.docId !== docId);
     setLinks([...tmp]);
   }
   async function handleUpdateLink(docId, title, url) {
@@ -84,17 +86,31 @@ export default function DashboardView() {
   return (
     <DashboardWrapper>
       <div>
-        <h1>dashboard</h1>
-        <form action="" onSubmit={handleOnSubmit}>
+        <h1>Dashboard</h1>
+        <form
+          className={styles.entryContainer}
+          action=""
+          onSubmit={handleOnSubmit}
+        >
           <label htmlFor="title">Title</label>
-          <input type="text" name="title" onChange={handleOnChange} />
+          <input
+            className="input"
+            type="text"
+            name="title"
+            onChange={handleOnChange}
+          />
 
           <label htmlFor="url">Url</label>
-          <input type="text" name="url" onChange={handleOnChange} />
+          <input
+            className="input"
+            type="text"
+            name="url"
+            onChange={handleOnChange}
+          />
 
-          <input type="submit" value="Create new link" />
+          <input className="btn" type="submit" value="Create new link" />
         </form>
-        <div>
+        <div className={stylesLink.linksContainer}>
           {links.map((e) => (
             <Link
               key={e.id}

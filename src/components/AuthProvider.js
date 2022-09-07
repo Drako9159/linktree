@@ -4,13 +4,9 @@ import {
   registerNewUser,
   userExist,
 } from "../firebase/firebase";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function AuthProvider({
   children,

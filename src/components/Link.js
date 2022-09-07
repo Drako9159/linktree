@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import editImg from "../assets/edit.png";
+import deleteImg from "../assets/delete.png";
+import styles from "./Link.module.css";
 
 export default function Link({ docId, title, url, onDelete, onUpdate }) {
   const titleRef = useRef(null);
@@ -45,9 +48,9 @@ export default function Link({ docId, title, url, onDelete, onUpdate }) {
   }
 
   return (
-    <div key={docId}>
-      <div>
-        <div>
+    <div className={styles.link}>
+      <div className={styles.linkInfo}>
+        <div className={styles.linkTitle}>
           {editTitle ? (
             <>
               <input
@@ -59,12 +62,14 @@ export default function Link({ docId, title, url, onDelete, onUpdate }) {
             </>
           ) : (
             <>
-              <button onClick={handleEditTitle}>Edit</button>
+              <button className={styles.btnEdit} onClick={handleEditTitle}>
+                <img src={editImg} alt="edit" />
+              </button>
               {currentTitle}
             </>
           )}
         </div>
-        <div>
+        <div className={styles.linkUrl}>
           {editUrl ? (
             <>
               <input
@@ -76,14 +81,18 @@ export default function Link({ docId, title, url, onDelete, onUpdate }) {
             </>
           ) : (
             <>
-              <button onClick={handleEditUrl}>Edit</button>
+              <button className={styles.btnEdit} onClick={handleEditUrl}>
+                <img src={editImg} alt="edit" />
+              </button>
               {currentUrl}
             </>
           )}
         </div>
       </div>
-      <div>
-        <button onClick={handleDelete}>Delete</button>
+      <div className={styles.linkActions}>
+        <button className={styles.btnDelete} onClick={handleDelete}>
+          <img src={deleteImg} alt="delete" />
+        </button>
       </div>
     </div>
   );
